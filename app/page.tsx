@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect } from 'react';
-
+import React from 'react';
 import Lenis from 'lenis';
 import Block from '../components/Block';
 import Block2 from '../components/Block2';
