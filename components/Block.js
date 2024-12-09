@@ -4,17 +4,15 @@ import { useScroll, useTransform, motion } from 'framer-motion';
 export default function Block({ imageUrl, title, number }) {
   const container = useRef(null);
 
-  // Scroll progress in de Y-richting
   const { scrollYProgress } = useScroll({
     target: container,
-    offset: ['start start', 'end start'],
+    offset: ['start end', 'end start'],
   });
 
-  // Transformeer de Y-waarde op basis van scrollProgress
-  const y = useTransform(scrollYProgress, [0, 1], ['0vh', '50vh']);
+  const y = useTransform(scrollYProgress, [0, 1], ['-50%', '50vh']);
 
   return (
-    <div className="flex h-screen" ref={container}>
+    <div className="flex h-screen snap-start" ref={container}>
       <div className="bg-white flex-1 flex flex-col justify-between py-4 z-10">
         <div className="flex-1 flex items-center justify-center">
           <img
@@ -30,13 +28,12 @@ export default function Block({ imageUrl, title, number }) {
         </div>
       </div>
 
-      <div className="flex-1 relative">
-        {/* Motion image voor parallax-effect */}
+      <div className="flex-1 relative overflow-hidden">
         <motion.img
           src={imageUrl}
           alt="Full Height Image"
-          className="overflow-hidden absolute top-0 left-0 h-full w-full object-cover"
-          style={{ y, willChange: 'transform' }} // Optimalisatie voor prestaties
+         className="absolute top-0 left-0 w-full h-[110%] object-cover"
+          style={{ y, willChange: 'transform' }}
         />
       </div>
     </div>
